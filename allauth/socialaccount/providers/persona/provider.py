@@ -1,7 +1,7 @@
 import json
 
-from django.template.loader import render_to_string
-from django.template import RequestContext
+from coffin.shortcuts import render_to_string
+from coffin.template import RequestContext
 
 from allauth.socialaccount import providers
 from allauth.socialaccount.providers.base import ProviderAccount, Provider

@@ -8,14 +8,14 @@
 <h1>{% trans "Account Connections" %}</h1>
 
 {% if form.accounts %}
-<p>{% blocktrans %}You can sign in to your account using any of the following third party accounts:{% endblocktrans %}</p>
+<p>{% trans %}You can sign in to your account using any of the following third party accounts:{% endblocktrans %}</p>
 
 
 <form class="uniForm" method="post">
 {% csrf_token %}
 
 <fieldset class="blockLabels">
-{% if form.non_field_errors %}
+{% if form.non_field_errors() %}
 <div id="errorMsg">{{form.non_field_errors}}</div>
 {% endif %}
 

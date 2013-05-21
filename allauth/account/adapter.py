@@ -1,8 +1,8 @@
+from jinja2 import TemplateNotFound
 import warnings
 
 from django.conf import settings
-from django.template.loader import render_to_string
-from django.template import TemplateDoesNotExist
+from coffin.shortcuts import render_to_string
 from django.contrib.sites.models import Site
 from django.core.mail import EmailMultiAlternatives, EmailMessage
 from django.utils.translation import ugettext_lazy as _
@@ -66,7 +66,7 @@ class DefaultAccountAdapter(object):
                 template_name = '{0}_message.{1}'.format(template_prefix, ext)
                 bodies[ext] = render_to_string(template_name,
                                                context).strip()
-            except TemplateDoesNotExist:
+            except TemplateNotFound:
                 if ext == 'txt' and not bodies:
                     # We need at least one body
                     raise
@@ -83,7 +83,7 @@ class DefaultAccountAdapter(object):
                                settings.DEFAULT_FROM_EMAIL, 
                                [email])
             msg.content_subtype = 'html'  # Main content is now text/html
-        msg.send()
+        #msg.send()
 
     def get_login_redirect_url(self, request):
         """

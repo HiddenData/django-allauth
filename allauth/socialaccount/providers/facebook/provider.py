@@ -2,8 +2,8 @@ import json
 
 from django.core.urlresolvers import reverse
 from django.core.exceptions import ImproperlyConfigured
-from django.template.loader import render_to_string
-from django.template import RequestContext
+from coffin.shortcuts import render_to_string
+from coffin.template import RequestContext
 from django.utils.html import mark_safe
 
 from allauth.utils import import_callable

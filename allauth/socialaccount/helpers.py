@@ -1,7 +1,7 @@
 from django.contrib import messages
-from django.shortcuts import render_to_response, render
+from coffin.shortcuts import render_to_response, render
+from coffin.template import RequestContext, loader
 from django.http import HttpResponseRedirect
-from django.template import RequestContext
 from django.core.urlresolvers import reverse
 from django.utils.translation import ugettext_lazy as _
 from django.template.defaultfilters import slugify
