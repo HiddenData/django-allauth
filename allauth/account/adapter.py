@@ -190,7 +190,7 @@ class DefaultAccountAdapter(object):
                                        message_context).strip()
             if message:
                 messages.add_message(request, level, message, extra_tags=extra_tags)
-        except TemplateDoesNotExist:
+        except TemplateNotFound:
             pass
 
 def get_adapter():
