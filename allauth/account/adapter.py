@@ -83,7 +83,7 @@ class DefaultAccountAdapter(object):
                                settings.DEFAULT_FROM_EMAIL, 
                                [email])
             msg.content_subtype = 'html'  # Main content is now text/html
-        #msg.send()
+        msg.send()
 
     def get_login_redirect_url(self, request):
         """
