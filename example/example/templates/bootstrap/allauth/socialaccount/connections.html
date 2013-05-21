@@ -8,16 +8,16 @@
 {% block account_content %}
 
 {% if form.accounts %}
-<p>{% blocktrans %}You can sign in to your account using any of the following third party accounts:{% endblocktrans %}</p>
+<p>{% trans %}You can sign in to your account using any of the following third party accounts:{% endblocktrans %}</p>
 
 
 <form method="post">
 {% csrf_token %}
 
-{% if form.non_field_errors %}
+{% if form.non_field_errors() %}
     <div class="alert alert-error">
         <a class="close" data-dismiss="alert">&times;</a></a>
-        {% for non_field_error in form.non_field_errors %}
+        {% for non_field_error in form.non_field_errors() %}
              {{ non_field_error }}
         {% endfor %}
     </div>

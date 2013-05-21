@@ -1,8 +1,10 @@
+from coffin.views.decorators import template_response
 from django.core.urlresolvers import reverse
 from django.contrib.sites.models import Site
 from django.http import HttpResponseRedirect, Http404
-from django.shortcuts import render_to_response, get_object_or_404
-from django.template import RequestContext
+from django.shortcuts import get_object_or_404
+from coffin.shortcuts import render_to_response, render
+from coffin.template import RequestContext, loader
 from django.utils.http import base36_to_int
 from django.utils.translation import ugettext
 from django.utils.translation import ugettext_lazy as _
@@ -48,7 +50,8 @@ class RedirectAuthenticatedUserMixin(object):
         return get_login_redirect_url(self.request, 
                                       url=self.get_success_url(),
                                       redirect_field_name=self.redirect_field_name)
-        
+
+@template_response
 class LoginView(RedirectAuthenticatedUserMixin, FormView):
     form_class = LoginForm
     template_name = "account/login.html"
@@ -78,8 +81,6 @@ class LoginView(RedirectAuthenticatedUserMixin, FormView):
                 })
         return ret
 
-login = LoginView.as_view()
-
 class CloseableSignupMixin(object):
     template_name_signup_closed = "account/signup_closed.html"
 
@@ -106,7 +107,7 @@ class CloseableSignupMixin(object):
         }
         return self.response_class(**response_kwargs)
 
-
+@template_response
 class SignupView(RedirectAuthenticatedUserMixin, CloseableSignupMixin, FormView):
     template_name = "account/signup.html"
     form_class = SignupForm
@@ -138,9 +139,7 @@ class SignupView(RedirectAuthenticatedUserMixin, CloseableSignupMixin, FormView)
                     "redirect_field_value": redirect_field_value })
         return ret
 
-
-signup = SignupView.as_view()
-
+@template_response
 class ConfirmEmailView(TemplateResponseMixin, View):
     
     messages = {
@@ -208,7 +207,6 @@ class ConfirmEmailView(TemplateResponseMixin, View):
     def get_redirect_url(self):
         return get_adapter().get_email_confirmation_redirect_url(self.request)
 
-confirm_email = ConfirmEmailView.as_view()
 
 @login_required
 def email(request, **kwargs):
@@ -425,7 +423,7 @@ def password_reset_from_key(request, uidb36, key, **kwargs):
 
     return render_to_response(template_name, RequestContext(request, ctx))
 
-
+@template_response
 class LogoutView(TemplateResponseMixin, View):
     
     template_name = "account/logout.html"
@@ -462,6 +460,3 @@ class LogoutView(TemplateResponseMixin, View):
         return (get_next_redirect_url(self.request, 
                                       self.redirect_field_name)
                 or get_adapter().get_logout_redirect_url(self.request))
-
-
-logout = LogoutView.as_view()

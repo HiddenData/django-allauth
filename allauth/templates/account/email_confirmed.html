@@ -3,15 +3,15 @@
 {% load i18n %}
 {% load account %}
 
-{% block head_title %}{% trans "Confirm E-mail Address" %}{% endblock %}
+{% block head_title %}{{ _("Confirm E-mail Address") }}{% endblock %}
 
 
 {% block content %}
 
-<h1>{% trans "Confirm E-mail Address" %}</h1>
+<h1>{{ _("Confirm E-mail Address") }}</h1>
 
-{% user_display email_address.user as user_display %}
+{% set user_display = do_user_display(email_address.user) %}
         
-<p>{% blocktrans with email_address.email as email %}You have confirmed that <a href="mailto:{{email}}">{{ email }}</a> is an e-mail address for user {{ user_display }}.{% endblocktrans %}</p>
+<p>{% trans email=email_address.email %}You have confirmed that <a href="mailto:{{email}}">{{ email }}</a> is an e-mail address for user {{ user_display }}.{% endtrans %}</p>
 
 {% endblock %}

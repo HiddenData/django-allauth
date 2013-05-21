@@ -3,8 +3,8 @@ from django.contrib import messages
 from django.http import HttpResponseRedirect
 from django.core.urlresolvers import reverse
 from django.contrib.sites.models import Site
-from django.template import RequestContext
-from django.shortcuts import render_to_response
+from coffin.shortcuts import render_to_response, render
+from coffin.template import RequestContext, loader
 from django.contrib.auth.decorators import login_required
 from django.views.generic.edit import FormView
 
@@ -42,8 +42,6 @@ class SignupView(RedirectAuthenticatedUserMixin, CloseableSignupMixin, FormView)
 
     def get_authenticated_redirect_url(self):
         return reverse(connections)
-
-signup = SignupView.as_view()
 
 
 def login_cancelled(request):
