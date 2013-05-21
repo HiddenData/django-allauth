@@ -1,2 +1,1 @@
-{% load i18n %}
 {% trans %}Your primary e-mail address must be verified.{% endtrans %}

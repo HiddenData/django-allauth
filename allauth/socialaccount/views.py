@@ -1,3 +1,4 @@
+from coffin.views.decorators import template_response
 from django.contrib import messages
 from django.http import HttpResponseRedirect
 from django.core.urlresolvers import reverse
@@ -13,7 +14,7 @@ from ..account.adapter import get_adapter as get_account_adapter
 from .forms import DisconnectForm, SignupForm
 from . import helpers
 
-
+@template_response
 class SignupView(RedirectAuthenticatedUserMixin, CloseableSignupMixin, FormView):
     form_class = SignupForm
     template_name = 'socialaccount/signup.html'

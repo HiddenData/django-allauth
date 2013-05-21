@@ -1,2 +1,1 @@
-{% load i18n %}
 {% trans %}Removed e-mail address {{email}}.{% endtrans %}

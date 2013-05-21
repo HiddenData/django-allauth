@@ -1,6 +1,5 @@
-{% load account %}
 {% set user_display = do_user_display(user) %}
-{% load i18n %}{% trans site_name=current_site.name %}
+{% trans site_name=current_site.name %}
 User {{ user_display }} at {{ site_name }} has given this as an email address.
 
 To confirm this is correct, go to {{ activate_url }}

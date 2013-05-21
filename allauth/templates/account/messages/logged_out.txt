@@ -1,2 +1,1 @@
-{% load i18n %}
 {% trans %}You have signed out.{% endtrans %}

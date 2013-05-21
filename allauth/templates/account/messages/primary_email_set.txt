@@ -1,2 +1,1 @@
-{% load i18n %}
 {% trans %}Primary e-mail address set.{% endtrans %}

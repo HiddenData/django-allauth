@@ -1,2 +1,1 @@
-{% load i18n %}
 {% trans %}Confirmation e-mail sent to {{email}}.{% endtrans %}

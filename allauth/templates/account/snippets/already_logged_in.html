@@ -1,5 +1,2 @@
-{% load i18n %}
-{% load account %}
-
 {% set user_display = do_user_display(user) %}
 <p><strong>{{ _("Note") }}:</strong> {% trans %}you are already logged in as {{ user_display }}.{% endtrans %}</p>
