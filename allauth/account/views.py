@@ -197,8 +197,8 @@ class ConfirmEmailView(TemplateResponseMixin, View):
         return get_adapter().get_email_confirmation_redirect_url(self.request)
 
 def _no_add_email_action(request, email_address):
+    email = email_address.email
     if "action_send" in request.POST:
-
         get_adapter().add_message(request,
                                   messages.INFO,
                                   'account/messages/email_confirmation_sent.txt',
