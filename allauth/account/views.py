@@ -196,6 +196,65 @@ class ConfirmEmailView(TemplateResponseMixin, View):
     def get_redirect_url(self):
         return get_adapter().get_email_confirmation_redirect_url(self.request)
 
+def _no_add_email_action(request, email_address):
+    if "action_send" in request.POST:
+
+        get_adapter().add_message(request,
+                                  messages.INFO,
+                                  'account/messages/email_confirmation_sent.txt',
+                                  { 'email': email })
+        email_address.send_confirmation(request)
+        return HttpResponseRedirect(reverse('account_email'))
+    elif "action_remove" in request.POST:
+        if email_address.primary:
+            get_adapter().add_message(request,
+                                      messages.ERROR,
+                                      'account/messages/cannot_delete_primary_email.txt',
+                                      { "email": email })
+        else:
+            email_address.delete()
+            signals.email_removed.send(sender=request.user.__class__,
+                                       request=request,
+                                       user=request.user,
+                                       email_address=email_address)
+            get_adapter().add_message(request,
+                                      messages.SUCCESS,
+                                      'account/messages/email_deleted.txt',
+                                      { "email": email })
+            return HttpResponseRedirect(reverse('account_email'))
+    elif "action_primary" in request.POST:
+        if not email_address.verified and \
+                EmailAddress.objects.filter(
+                        user=request.user,
+                        verified=True#,
+                        #primary=True
+                        # Slightly different variation, don't
+                        # require verified unless moving from a
+                        # verified address. Ignore constraint
+                        # if previous primary email address is
+                        # not verified.
+                    ).exists():
+            get_adapter().add_message(request,
+                                      messages.ERROR,
+                                      'account/messages/unverified_primary_email.txt')
+        else:
+            # Sending the old primary address to the signal
+            # adds a db query.
+            try:
+                from_email_address = EmailAddress.objects.get(
+                        user=request.user, primary=True )
+            except EmailAddress.DoesNotExist:
+                from_email_address = None
+            email_address.set_as_primary()
+            get_adapter().add_message(request,
+                                      messages.SUCCESS,
+                                      'account/messages/primary_email_set.txt')
+            signals.email_changed.send(
+                    sender=request.user.__class__,
+                    request=request, user=request.user,
+                    from_email_address=from_email_address,
+                    to_email_address=email_address)
+            return HttpResponseRedirect(reverse('account_email'))
 
 @login_required
 def email(request, **kwargs):
@@ -218,87 +277,14 @@ def email(request, **kwargs):
         else:
             add_email_form = form_class()
             if request.POST.get("email"):
-                if "action_send" in request.POST:
-                    email = request.POST["email"]
-                    try:
-                        email_address = EmailAddress.objects.get(
-                            user=request.user,
-                            email=email,
-                        )
-                        get_adapter().add_message(request,
-                                                  messages.INFO,
-                                                  'account/messages/email_confirmation_sent.txt',
-                                                  { 'email': email })
-                        email_address.send_confirmation(request)
-                        return HttpResponseRedirect(reverse('account_email'))
-                    except EmailAddress.DoesNotExist:
-                        pass
-                elif "action_remove" in request.POST:
-                    email = request.POST["email"]
-                    try:
-                        email_address = EmailAddress.objects.get(
-                            user=request.user,
-                            email=email
-                        )
-                        if email_address.primary:
-                            get_adapter().add_message(request, 
-                                                      messages.ERROR,
-                                                      'account/messages/cannot_delete_primary_email.txt',
-                                                      { "email": email })
-                        else:
-                            email_address.delete()
-                            signals.email_removed.send(sender=request.user.__class__,
-                                                       request=request, 
-                                                       user=request.user,
-                                                       email_address=email_address)
-                            get_adapter().add_message(request,
-                                                      messages.SUCCESS,
-                                                      'account/messages/email_deleted.txt',
-                                                      { "email": email })
-                            return HttpResponseRedirect(reverse('account_email'))
-                    except EmailAddress.DoesNotExist:
-                        pass
-                elif "action_primary" in request.POST:
-                    email = request.POST["email"]
-                    try:
-                        email_address = EmailAddress.objects.get(
-                            user=request.user,
-                            email=email,
-                        )
-                        if not email_address.verified and \
-                                EmailAddress.objects.filter(
-                                        user=request.user,
-                                        verified=True#,
-                                        #primary=True
-                                        # Slightly different variation, don't
-                                        # require verified unless moving from a
-                                        # verified address. Ignore constraint
-                                        # if previous primary email address is
-                                        # not verified.
-                                    ).exists():
-                            get_adapter().add_message(request, 
-                                                      messages.ERROR,
-                                                      'account/messages/unverified_primary_email.txt')
-                        else:
-                            # Sending the old primary address to the signal
-                            # adds a db query.
-                            try:
-                                from_email_address = EmailAddress.objects.get(
-                                        user=request.user, primary=True )
-                            except EmailAddress.DoesNotExist:
-                                from_email_address = None
-                            email_address.set_as_primary()
-                            get_adapter().add_message(request, 
-                                                      messages.SUCCESS,
-                                                      'account/messages/primary_email_set.txt')
-                            signals.email_changed.send(
-                                    sender=request.user.__class__,
-                                    request=request, user=request.user,
-                                    from_email_address=from_email_address,
-                                    to_email_address=email_address)
-                            return HttpResponseRedirect(reverse('account_email'))
-                    except EmailAddress.DoesNotExist:
-                        pass
+                email = request.POST["email"]
+                try:
+                    email_address = EmailAddress.objects.get(
+                        user=request.user,
+                        email=email)
+                    return _no_add_email_action(request, email_address)
+                except EmailAddress.DoesNotExist:
+                    pass
     else:
         add_email_form = form_class()
     ctx = { "add_email_form": add_email_form }
