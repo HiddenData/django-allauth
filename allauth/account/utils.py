@@ -9,7 +9,7 @@ except ImportError:
     now = datetime.now
 
 from django.contrib import messages
-from django.shortcuts import render
+from coffin.shortcuts import render
 from django.conf import settings
 from django.contrib.auth import login
 from django.utils.translation import ugettext_lazy as _, ugettext

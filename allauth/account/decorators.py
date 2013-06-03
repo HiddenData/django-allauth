@@ -1,6 +1,6 @@
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth import REDIRECT_FIELD_NAME
-from django.shortcuts import render
+from coffin.shortcuts import render
 
 from .models import EmailAddress
 

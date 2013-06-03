@@ -1,5 +1,5 @@
 from django.utils.cache import patch_response_headers
-from django.shortcuts import render
+from coffin.shortcuts import render
 
 import requests
 
