@@ -1,5 +1,4 @@
 from django.contrib import messages
-from allauth.account.models import EmailAddress
 from coffin.shortcuts import render_to_response, render
 from coffin.template import RequestContext, loader
 from django.http import HttpResponseRedirect
@@ -74,6 +73,7 @@ def _process_signup(request, sociallogin):
         user_email(u, email or '')
         u.set_unusable_password()
         sociallogin.save(request)
+        from allauth.account.models import EmailAddress
         email_address = EmailAddress.objects.get(user=u,
                                              email__iexact=email)
         if app_settings.AUTO_EMAIL_VERIFY == True:
