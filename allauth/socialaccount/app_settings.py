@@ -47,6 +47,14 @@ class AppSettings(object):
         return self._setting("PROVIDERS", {})
 
     @property
+    def AUTO_EMAIL_VERIFY(self):
+        """
+        If verify email automatically
+        """
+        return self._setting("AUTO_EMAIL_VERIFY", False)
+
+
+    @property
     def EMAIL_REQUIRED(self):
         """
         The user is required to hand over an e-mail address when signing up
