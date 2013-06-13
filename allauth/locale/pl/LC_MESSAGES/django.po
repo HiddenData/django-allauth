@@ -296,7 +296,7 @@ msgstr "Czy napewno chcesz usunąć zaznaczony adres e-mail?"
 #: templates/account/email_confirmed.html:11
 #: templates/account/email/email_confirmation_subject.txt:3
 msgid "Confirm E-mail Address"
-msgstr "Potwierdz adres e-mail"
+msgstr "Potwierdź adres e-mail"
 
 #: templates/account/email_confirm.html:17
 #, python-format
@@ -529,7 +529,7 @@ msgstr ""
 #: templates/account/email/email_confirmation_message.txt:1
 #, python-format
 msgid ""
-"User %(user_display)s at %(site_name)s has given this as an email address.\n"
+"\nUser %(user_display)s at %(site_name)s has given this as an email address.\n"
 "\n"
 "To confirm this is correct, go to %(activate_url)s\n"
 msgstr ""
@@ -545,23 +545,11 @@ msgid ""
 "password for your user account at %(site_domain)s.\n"
 "It can be safely ignored if you did not request a password reset. Click the "
 "link below to reset your password.\n"
-"\n"
-"%(password_reset_url)s\n"
-"\n"
-"In case you forgot, your username is %(username)s.\n"
-"\n"
-"Thanks for using our site!\n"
 msgstr ""
 "Otrzymujesz ten e-mail ponieważ ktoś (prawdopodobnie Ty) poprosił o nowe "
 "hasło na %(site_domain)s.\n"
 "Jeśli nie byłeś to Ty możesz zignorować tę wiadomość. W innym przypadku "
 "kliknij w link by zresetować swoje hasło:.\n"
-"\n"
-"%(password_reset_url)s\n"
-"\n"
-"Twój login to %(username)s.\n"
-"\n"
-"Dziękujemy!\n"
 
 #: templates/account/email/password_reset_key_subject.txt:3
 msgid "Password Reset E-mail"
@@ -569,7 +557,7 @@ msgstr "Hasło Reset E-mail"
 
 #: templates/account/snippets/already_logged_in.html:5
 msgid "Note"
-msgstr "Notatka"
+msgstr "Uwaga"
 
 #: templates/account/snippets/already_logged_in.html:5
 #, python-format
