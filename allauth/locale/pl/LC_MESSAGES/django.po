@@ -149,40 +149,37 @@ msgstr "potwierdzenia email"
 msgid "Successfully signed in as %(user)s."
 msgstr "Pomyślnie zalogowano jako %(user)s."
 
-msgid "Successfully signed in as {{name}}."
-msgstr "Pomyślnie zalogowano jako {{name}}."
-
 #: account/utils.py:240 account/views.py:222 account/views.py:241
 #, python-format
 msgid "Confirmation e-mail sent to %(email)s"
 msgstr "Potwierdzenie zostało wysałane na %(email)s"
 
-msgid "Confirmation e-mail sent to {{email}}."
-msgstr "Potwierdzenie zostało wysałane na {{email}}."
+#, python-format
+msgid "Confirmation e-mail sent to %(email)s."
+msgstr "Potwierdzenie zostało wysałane na %(email)s."
 
 #: account/views.py:147
 #, python-format
 msgid "You have confirmed %(email)s."
 msgstr "Potwierdziłeś adres %(email)s."
 
-msgid "You have confirmed {{email}}."
-msgstr "Potwierdziłeś adres {{email}}."
-
 #: account/views.py:259
 #, python-format
 msgid "You cannot remove your primary e-mail address (%(email)s)"
 msgstr "Nie możesz usunąć swojego podstawowego adresu e-mail (%(email)s)"
 
-msgid "You cannot remove your primary e-mail address ({{email}})."
-msgstr "Nie możesz usunąć swojego podstawowego adresu e-mail ({{email}})."
+#, python-format
+msgid "You cannot remove your primary e-mail address (%(email)s)."
+msgstr "Nie możesz usunąć swojego podstawowego adresu e-mail (%(email)s)."
 
 #: account/views.py:269
 #, python-format
 msgid "Removed e-mail address %(email)s"
 msgstr "Usunięto adres e-mail %(email)s"
 
-msgid "Removed e-mail address {{email}}."
-msgstr "Usunięto adres e-mail {{email}}."
+#, python-format
+msgid "Removed e-mail address %(email)s."
+msgstr "Usunięto adres e-mail %(email)s."
 
 #: account/views.py:295
 msgid "Your primary e-mail address must be verified"
