@@ -174,8 +174,8 @@ msgid "Your primary e-mail address must be verified."
 msgstr "Podstawowy adres e-mail musi zostać zweryfikowany."
 
 #: account/views.py:307
-msgid "Primary e-mail address set"
-msgstr "Podstawowe adresy e-mail"
+msgid "Primary e-mail address set."
+msgstr "Podstawowy adres e-mail został ustawiony."
 
 #: account/views.py:336 account/views.py:413
 msgid "Password successfully changed."
