@@ -660,11 +660,14 @@ msgstr ""
 "Chcesz użyć konta %(provider_name)s do zalogowania się na \n"
 "%(site_name)s. Teraz wystarczy, że wypełnisz poniższy formularz:"
 
-#~ msgid "Send E-mail confirmation"
-#~ msgstr "Wyslij potwierdzenie e-mail"
+msgid "Remove E-mail Address"
+msgstr "Usuń e-mail"
 
-#~ msgid "In case you forgot, your username is"
-#~ msgstr "W przypadku gdy zapomniałeś, podaj nazwę użytkownika"
+msgid "Send E-mail confirmation"
+msgstr "Wyślij potwierdzenie e-mail"
 
-#~ msgid "Thanks for using our site!"
-#~ msgstr "Dziękujemy za skorzystanie z naszej strony!"
+msgid "In case you forgot, your username is"
+msgstr "W przypadku gdy zapomniałeś, Twoja nazwa użytkonika to"
+
+msgid "Thanks for using our site!"
+msgstr "Dziękujemy za skorzystanie z naszej strony!"
