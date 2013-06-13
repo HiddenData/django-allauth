@@ -199,11 +199,11 @@ msgstr "Twoje konto nie ma zweryfikowanego adresu e-mail."
 
 #: socialaccount/helpers.py:129
 msgid "The social account has been connected."
-msgstr "Połączenie z kontem serwisu zewnętrznego zostało zapisane."
+msgstr "Połączenie z kontem serwisu społecznościowego zostało zapisane."
 
 #: socialaccount/views.py:66
 msgid "The social account has been disconnected."
-msgstr "Połączenie z kontem serwisu zewnętrznego zostało usunięte."
+msgstr "Połączenie z kontem serwisu społecznościowego zostało usunięte."
 
 #: socialaccount/providers/oauth/client.py:78
 #, python-format
