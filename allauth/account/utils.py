@@ -272,7 +272,7 @@ def send_email_confirmation(request, user, email_address=None):
         # At this point, if we were supposed to send an email we have sent it.
         if send_email:
             messages.info(request,
-                _(u"Confirmation e-mail sent to %(email)s") % {"email": email}
+                _(u"Confirmation e-mail sent to %(email)s.") % {"email": email}
             )
 
 def sync_user_email_addresses(user):
