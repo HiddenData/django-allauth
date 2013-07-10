@@ -14,6 +14,7 @@ for a {{site_name}} account and sign in below:{% endtrans %}</p>
 <div class="socialaccount_ballot">
 
   <ul class="socialaccount_providers">
+      {% set process="login" %}
     {% include "socialaccount/snippets/provider_list.html" %}
   </ul>
 

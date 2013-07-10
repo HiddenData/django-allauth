@@ -46,7 +46,8 @@
 <h2>{{ _('Add a 3rd Party Account') }}</h2>
 
 <ul class="socialaccount_providers">
-{% include "socialaccount/snippets/provider_list.html" %}
+{% set process="connect" %}
+{% include "socialaccount/snippets/provider_list.html"%}
 </ul>
 
 {% include "socialaccount/snippets/login_extra.html" %}

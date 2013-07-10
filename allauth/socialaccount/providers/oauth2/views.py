@@ -1,3 +1,5 @@
+from __future__ import absolute_import
+
 from datetime import timedelta
 
 from django.core.urlresolvers import reverse
@@ -10,9 +12,11 @@ from allauth.socialaccount.providers.oauth2.client import (OAuth2Client,
                                                            OAuth2Error)
 from allauth.socialaccount.helpers import complete_social_login
 from allauth.socialaccount.models import SocialToken, SocialLogin
+from ..base import AuthAction
 
 class OAuth2Adapter(object):
     expires_in_key = 'expires_in'
+    supports_state = True
 
     def get_provider(self):
         return providers.registry.by_id(self.provider_id)
@@ -46,21 +50,24 @@ class OAuth2View(object):
         callback_url = request.build_absolute_uri(callback_url)
         provider = self.adapter.get_provider()
         client = OAuth2Client(self.request, app.client_id, app.secret,
-                              self.adapter.authorize_url,
                               self.adapter.access_token_url,
                               callback_url,
-                              provider.get_scope(),
-                              provider.get_auth_params())
+                              provider.get_scope())
         return client
 
 
 class OAuth2LoginView(OAuth2View):
     def dispatch(self, request):
-        app = self.adapter.get_provider().get_app(self.request)
+        provider = self.adapter.get_provider()
+        app = provider.get_app(self.request)
         client = self.get_client(request, app)
-        client.state = SocialLogin.marshall_state(request)
+        action = request.GET.get('action', AuthAction.AUTHENTICATE)
+        auth_url = self.adapter.authorize_url
+        auth_params = provider.get_auth_params(request, action)
+        client.state = SocialLogin.stash_state(request)
         try:
-            return HttpResponseRedirect(client.get_redirect_url())
+            return HttpResponseRedirect(client.get_redirect_url(auth_url, 
+                                                                auth_params))
         except OAuth2Error:
             return render_authentication_error(request)
 
@@ -82,8 +89,13 @@ class OAuth2CallbackView(OAuth2View):
                                                 response=access_token)
             token.account = login.account
             login.token = token
-            login.state = SocialLogin.unmarshall_state(request.REQUEST
-                                                       .get('state'))
+            if self.adapter.supports_state:
+                login.state = SocialLogin \
+                    .verify_and_unstash_state(
+                        request,
+                        request.REQUEST.get('state'))
+            else:
+                login.state = SocialLogin.unstash_state(request)
             return complete_social_login(request, login)
         except OAuth2Error:
             return render_authentication_error(request)

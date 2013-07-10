@@ -54,9 +54,12 @@ INSTALLED_APPS = (
     'allauth.socialaccount.providers.twitter',
     'allauth.socialaccount.providers.vimeo',
     'allauth.socialaccount.providers.weibo',
+    'allauth.socialaccount.providers.bitly',
 )
 
 AUTHENTICATION_BACKENDS = (
     "django.contrib.auth.backends.ModelBackend",
     "allauth.account.auth_backends.AuthenticationBackend",
 )
+
+STATIC_URL = '/static/'

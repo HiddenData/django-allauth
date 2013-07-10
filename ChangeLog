@@ -1,3 +1,70 @@
+2013-07-01  Raymond Penners  <raymond.penners@intenct.nl>
+
+	* Version 0.12.0 released.
+
+2013-06-29  Raymond Penners  <raymond.penners@intenct.nl>
+
+	* Added support for re-authenticated (forced prompt) by means of a
+	new `action="reauthenticate"` parameter to the `{%
+	provider_login_url %}`
+
+2013-06-28  Raymond Penners  <raymond.penners@intenct.nl>
+
+	* Roberto Novaes contributed a Brazilian Portuguese translation,
+	thanks!
+
+2013-06-18  Raymond Penners  <raymond.penners@intenct.nl>
+
+	* Daniel Eriksson contributed a Swedish translation, thanks!
+
+2013-06-11  Raymond Penners  <raymond.penners@intenct.nl>
+
+	* You can now logout from both allauth and Facebook via a
+	Javascript helper: `window.allauth.facebook.logout()`.
+
+2013-06-10  Raymond Penners  <raymond.penners@intenct.nl>
+
+	* Connecting a social account is now a flow that needs to be
+	explicitly triggered, by means of a `process="connect"` parameter
+	that can be passed along to the `{% provider_login_url %}`, or a
+	`process=connect` GET parameter.
+
+2013-06-06  Raymond Penners  <raymond.penners@intenct.nl>
+
+	* Tomas Marcik contributed a Czech translation, thanks!
+
+2013-06-04  Raymond Penners  <raymond.penners@intenct.nl>
+
+	* Version 0.11.1 released (due to issue in disconnecting social
+	accounts).
+
+2013-06-02  Raymond Penners  <raymond.penners@intenct.nl>
+
+	* Version 0.11.0 released.
+
+2013-05-30  Raymond Penners  <raymond.penners@intenct.nl>
+
+	* Moved logic whether or not a social account can be disconnected
+	to the `SocialAccountAdapter` (`validate_disconnect`).
+
+	* Added `social_account_removed` signal.
+
+2013-05-29  Raymond Penners  <raymond.penners@intenct.nl>
+
+	* Implemented CSRF protection
+	(http://tools.ietf.org/html/draft-ietf-oauth-v2-30#section-10.12).
+
+	* The `user_logged_in` signal now optionally receives a
+	`sociallogin` parameter, in case of a social login.
+
+	* Added `social_account_added` (contributed by orblivion, thanks).
+
+	* Hatem Nassrat contributed Bitly support, thanks!
+
+2013-05-22  Raymond Penners  <raymond.penners@intenct.nl>
+
+	* Bojan Mihelac contributed a Croatian translation, thanks!
+
 2013-05-20  Raymond Penners  <raymond.penners@intenct.nl>
 
 	* Messages (as in `django.contrib.messages`) are now configurable

@@ -68,6 +68,8 @@ Supported Flows
 Supported Providers
 -------------------
 
+- Bitly (OAuth2)
+
 - Dropbox (OAuth)
 
 - Facebook (both OAuth2 and JS SDK)
@@ -157,10 +159,11 @@ settings.py::
         'allauth.account',
         'allauth.socialaccount',
 	# ... include the providers you want to enable:
+        'allauth.socialaccount.providers.bitly',
         'allauth.socialaccount.providers.dropbox',
         'allauth.socialaccount.providers.facebook',
-        'allauth.socialaccount.providers.google',
         'allauth.socialaccount.providers.github',
+        'allauth.socialaccount.providers.google',
         'allauth.socialaccount.providers.linkedin',
         'allauth.socialaccount.providers.openid',
         'allauth.socialaccount.providers.persona',
@@ -306,6 +309,22 @@ SOCIALACCOUNT_PROVIDERS (= dict)
 
 Upgrading
 ---------
+
+From 0.11.1
+***********
+
+- The `{% provider_login_url %}` tag now takes an optional process
+  parameter that indicates how to process the social login. As a
+  result, if you include the template
+  `socialaccount/snippets/provider_list.html` from your own overriden
+  `socialaccount/connections.html` template, you now need to pass
+  along the process parameter as follows: 
+  `{% include "socialaccount/snippets/provider_list.html" with process="connect" %}`.
+
+- Instead of inlining the required Facebook SDK Javascript wrapper
+  code into the HTML, it now resides into its own .js file (served
+  with `{% static %}`). If you were using the builtin `fbconnect.html`
+  this change should go by unnoticed.
 
 From 0.9.0
 **********
@@ -713,6 +732,15 @@ The following signals are emitted:
   tokens and profile information, if applicable for the provider, is
   provided.
 
+- `allauth.socialaccount.signals.social_account_added`
+
+  Sent after a user connects a social account to a his local account.
+
+- `allauth.socialaccount.signals.social_account_removed`
+
+  Sent after a user disconnects a social account from his local
+  account.
+
 
 Views
 =====
@@ -783,6 +811,17 @@ Use the `provider_login_url` tag to generate provider specific login URLs::
 
     <a href="{% provider_login_url "openid" openid="https://www.google.com/accounts/o8/id" next="/success/url/" %}">Google</a>
     <a href="{% provider_login_url "twitter" %}">Twitter</a>
+
+Here, you can pass along an optional `process` parameter that
+indicates how to process the social login. You can choose between
+`login` and `connect`::
+
+    <a href="{% provider_login_url "twitter" process="connect" %}">Connect a Twitter account</a>
+
+Furthermore, you can pass along an `action` parameter with value
+`reauthenticate` to indicate that you want the user to be re-prompted
+for authentication even if he already signed in before. For now, this
+is supported by Facebook, Google and Twitter only.
 
 
 For easy access to the social accounts for a user::
@@ -934,6 +973,7 @@ Showcase
 ========
 
 - http://www.highlightcam.com/
+- http://www.q-dance.com
 - http://officecheese.com
 - http://www.mycareerstack.com
 - http://jug.gl
