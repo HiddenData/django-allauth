@@ -172,6 +172,8 @@ class SocialLogin(object):
             # TODO: Add any new email addresses automatically?
             pass
         else:
+            # fix for VIDK-36 in YT
+            self.email_addresses = filter(lambda x: x.user_id, self.email_addresses)
             setup_user_email(request, user, self.email_addresses)
 
     @property
