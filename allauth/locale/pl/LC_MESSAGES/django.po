@@ -146,8 +146,8 @@ msgstr "potwierdzenia email"
 
 #: account/utils.py:95
 #, python-format
-msgid "Successfully signed in as %(user)s."
-msgstr "Pomyślnie zalogowano jako %(user)s."
+msgid "Successfully signed in as %(name)s."
+msgstr "Pomyślnie zalogowano jako %(name)s."
 
 #: account/utils.py:240 account/views.py:222 account/views.py:241
 #, python-format
