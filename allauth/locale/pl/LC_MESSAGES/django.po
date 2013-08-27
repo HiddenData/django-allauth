@@ -580,12 +580,12 @@ msgstr "To konto jest nieaktywne"
 #: templates/socialaccount/authentication_error.html:5
 #: templates/socialaccount/authentication_error.html:8
 msgid "Social Network Login Failure"
-msgstr "Błąd logowania się przez portal"
+msgstr "Błąd logowania"
 
 #: templates/socialaccount/authentication_error.html:10
 msgid ""
 "An error occurred while attempting to login via your social network account."
-msgstr "Wystąpił błąd podczas próby zalogowania się przez konto na portalu."
+msgstr "Wystąpił błąd podczas próby logowania. Spróbuj ponownie."
 
 #: templates/socialaccount/connections.html:5
 #: templates/socialaccount/connections.html:8
